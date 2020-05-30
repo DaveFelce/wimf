@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# IDEs
+.rsyncignore
+*.sublime-*
+*.vscode
+.idea/
+.idea/*
+.idea
+
+# Environments
+env
+
+# Mac files
+.DS_Store
+
+# Env files
+.env
+
+# Coverage artifacts
+.coverage.*
+
+# Tests
+.pytest_cache/
