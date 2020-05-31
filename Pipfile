@@ -7,9 +7,14 @@ verify_ssl = true
 
 [packages]
 django = "*"
-django-bootstrap4 = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
+pygal = "*"
+elasticsearch = "*"
+elasticsearch-dsl = "*"
+model-mommy = "*"
+requests = "*"
+django-bootstrap3 = "*"
 
 [requires]
 python_version = "3.8"
