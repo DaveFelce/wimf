@@ -149,10 +149,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-# Where manage.py collectstatic will store static files for deployment
+# Where manage.py collectstatic will store static files for deployment. Configure in nginx proxy
 STATIC_ROOT = os.path.join(BASE_DIR, "static_deploy")
 # URL for static files, but in debug (development) will auto find in app/static/appname/ dirs
 STATIC_URL = "/static/"
+
+# User uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # URL for static files, but in debug (development) will auto find in app/media/appname/ dirs
 MEDIA_URL = "/media/"
