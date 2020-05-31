@@ -19,6 +19,7 @@ services:
       - ES_USER=${ES_USER}
       - ES_PASSWORD=${ES_PASSWORD}
       - SECRET_KEY=${SECRET_KEY}
+      - PYTHONPATH=/app
     ports:
       - "8000:8000"
       - "8080:8080"

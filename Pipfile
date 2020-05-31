@@ -15,6 +15,9 @@ elasticsearch-dsl = "*"
 model-mommy = "*"
 requests = "*"
 django-bootstrap3 = "*"
+pytest = "*"
+pytest-mock = "*"
+pytest-sugar = "*"
 
 [requires]
 python_version = "3.8"

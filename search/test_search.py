@@ -6,7 +6,7 @@ from services.es_search import RecipeSearch
 from .views import percentage_of_ingredients_matched
 
 
-class SearchTests(TestCase):
+class TestSearch(TestCase):
     """ Test searches """
 
     def test_search_service(self):

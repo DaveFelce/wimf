@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-class HomeTests(TestCase):
+class TestHome(TestCase):
     """ Test Home """
 
     def test_index(self):
