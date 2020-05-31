@@ -117,21 +117,21 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "file": {
-            "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, "wimf.log"),
-        },
-    },
-    "loggers": {
-        "django": {"handlers": ["file"], "level": "DEBUG", "propagate": True,},
-        "recipes": {"handlers": ["file"], "level": "DEBUG", "propagate": True,},
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "file": {
+#             "level": "DEBUG",
+#             "class": "logging.FileHandler",
+#             "filename": os.path.join(BASE_DIR, "wimf.log"),
+#         },
+#     },
+#     "loggers": {
+#         "django": {"handlers": ["file"], "level": "DEBUG", "propagate": True,},
+#         "recipes": {"handlers": ["file"], "level": "DEBUG", "propagate": True,},
+#     },
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
