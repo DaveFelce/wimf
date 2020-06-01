@@ -86,11 +86,6 @@ RUN pip install uwsgi
 RUN apt-get update && apt-get install -y supervisor \
     && rm -rf /var/lib/apt/lists/*
 
-# Nginx configs
-RUN rm -f /etc/nginx/conf.d/default.conf
-COPY ./.docker/configs/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-
 # Flask section
 ENV PYTHONBUFFERED 1
 ENV APPLICATION_ROOT /app/
@@ -101,6 +96,11 @@ RUN pip install pipenv
 COPY Pipfile /app
 COPY Pipfile.lock /app
 RUN pipenv install --system
+
+# Nginx configs
+RUN rm -f /etc/nginx/conf.d/default.conf
+COPY ./.docker/configs/nginx/conf.d/nginx.conf /etc/nginx/conf.d/
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # supervisor and UNIX socket
 COPY ./.docker/configs/supervisor/supervisord.conf /etc/supervisor/conf.d/
