@@ -1,0 +1,44 @@
+2020-06-03 10:55:39,554 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2020-06-03 10:55:39,677 INFO supervisord started with pid 23
+2020-06-03 10:55:40,682 INFO spawned: 'nginx' with pid 26
+2020-06-03 10:55:40,684 INFO spawned: 'uwsgi' with pid 27
+2020-06-03 10:55:41,387 INFO exited: nginx (exit status 1; not expected)
+2020-06-03 10:55:42,103 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-06-03 10:55:42,505 INFO spawned: 'nginx' with pid 30
+2020-06-03 10:55:42,517 INFO exited: nginx (exit status 1; not expected)
+2020-06-03 10:55:44,523 INFO spawned: 'nginx' with pid 32
+2020-06-03 10:55:44,557 INFO exited: nginx (exit status 1; not expected)
+2020-06-03 10:55:47,561 INFO spawned: 'nginx' with pid 33
+2020-06-03 10:55:47,568 INFO exited: nginx (exit status 1; not expected)
+2020-06-03 10:55:48,569 INFO gave up: nginx entered FATAL state, too many start retries too quickly
+2020-06-03 10:59:49,789 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2020-06-03 10:59:49,812 INFO supervisord started with pid 23
+2020-06-03 10:59:50,814 INFO spawned: 'nginx' with pid 26
+2020-06-03 10:59:50,816 INFO spawned: 'uwsgi' with pid 27
+2020-06-03 10:59:50,828 INFO exited: nginx (exit status 1; not expected)
+2020-06-03 10:59:52,352 INFO spawned: 'nginx' with pid 31
+2020-06-03 10:59:52,353 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-06-03 10:59:52,558 INFO exited: nginx (exit status 1; not expected)
+2020-06-03 10:59:54,561 INFO spawned: 'nginx' with pid 32
+2020-06-03 10:59:54,568 INFO exited: nginx (exit status 1; not expected)
+2020-06-03 10:59:57,572 INFO spawned: 'nginx' with pid 33
+2020-06-03 10:59:57,579 INFO exited: nginx (exit status 1; not expected)
+2020-06-03 10:59:58,579 INFO gave up: nginx entered FATAL state, too many start retries too quickly
+2020-06-03 11:07:02,457 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2020-06-03 11:07:02,460 INFO supervisord started with pid 23
+2020-06-03 11:07:03,467 INFO spawned: 'nginx' with pid 26
+2020-06-03 11:07:03,470 INFO spawned: 'uwsgi' with pid 27
+2020-06-03 11:07:04,911 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-06-03 11:07:04,912 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-06-03 11:13:28,563 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2020-06-03 11:13:28,567 INFO supervisord started with pid 23
+2020-06-03 11:13:29,571 INFO spawned: 'nginx' with pid 26
+2020-06-03 11:13:29,576 INFO spawned: 'uwsgi' with pid 27
+2020-06-03 11:13:31,170 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-06-03 11:13:31,171 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-06-03 11:15:17,022 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2020-06-03 11:15:17,027 INFO supervisord started with pid 22
+2020-06-03 11:15:18,029 INFO spawned: 'nginx' with pid 25
+2020-06-03 11:15:18,030 INFO spawned: 'uwsgi' with pid 26
+2020-06-03 11:15:19,517 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2020-06-03 11:15:19,517 INFO success: uwsgi entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
