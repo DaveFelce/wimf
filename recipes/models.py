@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
+
 from django.db import models
+
 
 class Recipe(models.Model):
     id = models.AutoField(primary_key=True)
@@ -14,5 +16,3 @@ class Recipe(models.Model):
         managed = True
         db_table = 'recipe'
         verbose_name_plural = "recipes"
-
-

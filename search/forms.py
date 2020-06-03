@@ -14,7 +14,7 @@ class RecipeSearchForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(RecipeSearchForm, self).__init__(*args, **kwargs)
 
-    ingredients = forms.CharField(label='Ingredients', max_length=2000, required=True)
+    ingredients = forms.CharField(label="Ingredients", max_length=2000, required=True)
 
     def process_post(self, request, context):
         """Process the posted recipe search form
@@ -40,14 +40,14 @@ class RecipeSearchForm(forms.Form):
         # Return to originating page with the original context and form object for
         # displaying the form validation errors
         if not self.is_valid():
-            context['form'] = self
-            return render(request, context['template'], context)
+            context["form"] = self
+            return render(request, context["template"], context)
 
         query_dict = {
-            'ingredients': cleanup_ingredients(self.cleaned_data.get('ingredients')),
-            'reverse': context['reverse'],
-            'page_title': context['page_title']
+            "ingredients": cleanup_ingredients(self.cleaned_data.get("ingredients")),
+            "reverse": context["reverse"],
+            "page_title": context["page_title"],
         }
         query_str = urlencode(query_dict)
-        search_url = reverse('search:process_recipe_search') + '?' + query_str
+        search_url = reverse("search:process_recipe_search") + "?" + query_str
         return HttpResponseRedirect(search_url)
