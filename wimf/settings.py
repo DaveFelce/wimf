@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "bootstrap3",
     "rest_framework",
+    "django_elasticsearch_dsl",
 ]
 
 MIDDLEWARE = [
@@ -77,22 +78,9 @@ WSGI_APPLICATION = "wimf.wsgi.application"
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-DATABASES = {
-    "default": {
-        'ENGINE': 'django.db.backends.postgresql',
-        "NAME": os.environ.get("DATABASE_NAME", ""),
-        "USER": os.environ.get("DATABASE_USER", ""),
-        "PASSWORD": os.environ.get("DATABASE_PASSWORD", ""),
-        "HOST": "postgres",
-        "PORT": "5432",
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'elasticsearch:9200'
     },
 }
 
@@ -102,7 +90,18 @@ SEARCH_SERVICE = {
     "ES_USER": os.environ.get("ES_USER", ""),
     "ES_PASSWORD": os.environ.get("ES_PASSWORD", ""),
     "ES_MAX_RESULTS": 12,
-    "ES_INDEX": "mysites_recipe",
+    "ES_INDEX": "recipes",
+}
+
+DATABASES = {
+    "default": {
+        'ENGINE': 'django.db.backends.postgresql',
+        "NAME": os.environ.get("DATABASE_NAME", ""),
+        "USER": os.environ.get("DATABASE_USER", ""),
+        "PASSWORD": os.environ.get("DATABASE_PASSWORD", ""),
+        "HOST": "postgres",
+        "PORT": "5432",
+    },
 }
 
 # Password validation

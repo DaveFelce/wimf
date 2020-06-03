@@ -19,8 +19,10 @@ class Home(View):
         """
 
         context = {
-            'page_title': "What's in my Fridge",
-            'reverse': reverse("home:index"), # So we can get back here if things go wrong
+            "page_title": "What's in my Fridge",
+            "reverse": reverse(
+                "home:index"
+            ),  # So we can get back here if things go wrong
         }
         return context
 
@@ -28,11 +30,10 @@ class Home(View):
         """get http method: search form will be empty
         """
         context = self.common_context()
-        context.update({
-            'form': RecipeSearchForm(),
-            'messages': get_messages(request),
-        })
-        return render(request, 'home/index.html', context)
+        context.update(
+            {"form": RecipeSearchForm(), "messages": get_messages(request),}
+        )
+        return render(request, "home/index.html", context)
 
     def post(self, request):
         """post http method: search form will be submitted
@@ -40,8 +41,8 @@ class Home(View):
         form = RecipeSearchForm(request.POST)
 
         context = self.common_context()
-        context.update({
-            'template': 'home/index.html',
-        })
+        context.update(
+            {"template": "home/index.html",}
+        )
         # Process the form and return the results
         return form.process_post(request, context)

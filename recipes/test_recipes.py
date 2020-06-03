@@ -1,18 +1,19 @@
 """ Recipes Tests """
 
+import json
+import logging
+
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.six import BytesIO
-from django.core.urlresolvers import reverse
+from model_mommy import mommy
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework.test import APITransactionTestCase
-import json
 
-from .serializers import RecipeSerializer
-from model_mommy import mommy
-from .models import Recipe
-import logging
+from recipes.models import Recipe
+from recipes.serializers import RecipeSerializer
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)

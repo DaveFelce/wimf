@@ -18,6 +18,7 @@ django-bootstrap3 = "*"
 pytest = "*"
 pytest-mock = "*"
 pytest-sugar = "*"
+django-elasticsearch-dsl = "*"
 
 [requires]
 python_version = "3.8"
