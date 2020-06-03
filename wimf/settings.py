@@ -90,7 +90,7 @@ SEARCH_SERVICE = {
     "ES_USER": os.environ.get("ES_USER", ""),
     "ES_PASSWORD": os.environ.get("ES_PASSWORD", ""),
     "ES_MAX_RESULTS": 12,
-    "ES_INDEX": "recipe",
+    "ES_INDEX": "recipes",
 }
 
 DATABASES = {
