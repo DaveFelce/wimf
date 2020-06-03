@@ -1,15 +1,21 @@
 version: '3.6'
 
-# TODO: loaddata in CMD?
 services:
-
   app:
     container_name: wimf-app
     build:
       context: ../..
       dockerfile: .docker/Dockerfile
     image: wimf
-    command: sh -c "/app/wait-for-it.sh postgres:5432 && python manage.py migrate && python manage.py collectstatic --noinput && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
+    command:
+      - sh
+      - "-c"
+      - |
+        /app/wait-for-it.sh postgres:5432
+        python manage.py migrate
+        python manage.py loaddata fixtures/latest.json
+        python manage.py collectstatic --noinput
+        /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
     volumes:
       - ../..:/app
     environment:
