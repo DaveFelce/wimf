@@ -24,3 +24,7 @@ env
 
 # Tests
 .pytest_cache/
+
+# Logs
+supervisor*
+wimf.log
