@@ -1,5 +1,6 @@
 version: '3.6'
 
+# TODO: loaddata and collectstatic in CMD?
 services:
 
   app:
@@ -8,7 +9,7 @@ services:
       context: ../..
       dockerfile: .docker/Dockerfile
     image: wimf
-    command: sh -c "tail -f /dev/null"
+    command: sh -c "/app/wait-for-it.sh postgres:5432 && python manage.py migrate && python manage.py collectstatic --noinput && /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf"
     volumes:
       - ../..:/app
     environment:
@@ -19,6 +20,7 @@ services:
       - ES_USER=${ES_USER}
       - ES_PASSWORD=${ES_PASSWORD}
       - SECRET_KEY=${SECRET_KEY}
+      - PYTHONPATH=/app
     ports:
       - "8000:8000"
       - "8080:8080"

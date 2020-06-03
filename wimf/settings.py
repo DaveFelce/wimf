@@ -31,16 +31,16 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost", "0.0.0.0"]
 # Application definition
 
 INSTALLED_APPS = [
-    # "home.apps.HomeConfig",
-    # "recipes.apps.RecipesConfig",
-    # "search.apps.SearchConfig",
+    "home.apps.HomeConfig",
+    "recipes.apps.RecipesConfig",
+    "search.apps.SearchConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "bootstrap4",
+    "bootstrap3",
     "rest_framework",
 ]
 
@@ -117,21 +117,21 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
-LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "file": {
-            "level": "DEBUG",
-            "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, "wimf.log"),
-        },
-    },
-    "loggers": {
-        "django": {"handlers": ["file"], "level": "DEBUG", "propagate": True,},
-        "recipes": {"handlers": ["file"], "level": "DEBUG", "propagate": True,},
-    },
-}
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "handlers": {
+#         "file": {
+#             "level": "DEBUG",
+#             "class": "logging.FileHandler",
+#             "filename": os.path.join(BASE_DIR, "wimf.log"),
+#         },
+#     },
+#     "loggers": {
+#         "django": {"handlers": ["file"], "level": "DEBUG", "propagate": True,},
+#         "recipes": {"handlers": ["file"], "level": "DEBUG", "propagate": True,},
+#     },
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -149,10 +149,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-# Where manage.py collectstatic will store static files for deployment
+# Where manage.py collectstatic will store static files for deployment. Configure in nginx proxy
 STATIC_ROOT = os.path.join(BASE_DIR, "static_deploy")
 # URL for static files, but in debug (development) will auto find in app/static/appname/ dirs
 STATIC_URL = "/static/"
+
+# User uploaded files
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # URL for static files, but in debug (development) will auto find in app/media/appname/ dirs
 MEDIA_URL = "/media/"
