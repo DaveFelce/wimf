@@ -24,7 +24,6 @@ class RecipeSearchForm(forms.Form):
         Params:
             request object,
             context, which must contain:
-                page_title (page's title)
                 reverse (originating page's view name, to return to in the event of errors or no results)
                 template (originating page's template)
 
@@ -48,7 +47,6 @@ class RecipeSearchForm(forms.Form):
         query_dict = {
             "ingredients": cleanup_ingredients(self.cleaned_data.get("ingredients")),
             "reverse": context["reverse"],
-            "page_title": context["page_title"],
         }
         query_str = urlencode(query_dict)
         search_url = reverse("search:process_recipe_search") + "?" + query_str

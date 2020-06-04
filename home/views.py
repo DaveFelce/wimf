@@ -19,7 +19,6 @@ class Home(View):
         """
 
         context = {
-            "page_title": "What's in my Fridge",
             "reverse": reverse(
                 "home:index"
             ),  # So we can get back here if things go wrong

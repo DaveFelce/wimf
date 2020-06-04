@@ -106,7 +106,6 @@ class ProcessRecipeSearch(View):
             "gauge_chart": gauge_chart.render_data_uri(),
             "bar_chart": bar_chart.render_data_uri(),
             "pie_chart": pie_chart.render_data_uri(),
-            "page_title": "Recipe search results",
         }
         return render(request, "recipes/search_results.html", context)
 
