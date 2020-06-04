@@ -6,7 +6,7 @@ import logging
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 import io
-from model_mommy import mommy
+from model_bakery import baker
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
@@ -27,9 +27,9 @@ class TestRecipes(APITransactionTestCase):
     def setUp(self):
         """ Set up some commonly needed attributes """
 
-        self.recipe1 = mommy.make("recipes.Recipe")
-        self.recipe2 = mommy.make("recipes.Recipe")
-        self.recipe3 = mommy.make("recipes.Recipe")
+        self.recipe1 = baker.make("recipes.Recipe")
+        self.recipe2 = baker.make("recipes.Recipe")
+        self.recipe3 = baker.make("recipes.Recipe")
         self.recipe4_json = '{ \
             "name": "Three In One Onion Dip Recipe", \
             "url": "http://cookeatshare.com/recipes/three-in-one-onion-dip-4122", \

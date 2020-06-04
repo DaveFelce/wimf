@@ -1,4 +1,5 @@
 import re
+from typing import List
 
 regex_whitespace = re.compile(r"\s+")
 regex_non_words = re.compile(r"\W")
@@ -24,49 +25,55 @@ def split_str_on_whitespace(ingredients):
     return regex_whitespace.split(ingredients)
 
 
-def cleanup_ingredients(ingredients):
+def cleanup_ingredients(ingredients: str) -> str:
     """
     Remove non-word chars and produce str of words separated by single whitespace
 
-    :param ingredients(str)
-    :return ingredients(str)
+    :param ingredients
+    :return ingredients
     """
     ingredients = regex_non_words.sub(" ", ingredients)
     cleaned_ingredients = " ".join(split_str_on_whitespace(ingredients)).strip()
+
     return cleaned_ingredients
 
 
-def lc_str_of_ingredients(ingredients):
+def lc_whitespaced_str_of_ingredients(ingredients: str) -> List:
     """
     Lower case version of cleanup_ingredients() for comparisons
 
-    :param ingredients(str)
-    :return ingredients(list)
+    :param ingredients: whitespace separated values as a string
+    :return ingredients
     """
     # Get ingredient keywords into known shape, separated by single whitespace
     ingredients = cleanup_ingredients(ingredients)
     # We know the words are separated by a single whitespace, so split on that
     # lowercase each word and return the list
-    return [qw.lower() for qw in regex_whitespace.split(ingredients)]
+    ingredients = [qw.lower() for qw in regex_whitespace.split(ingredients)]
+
+    return ingredients
 
 
-def lc_list_of_ingredients(ingredients):
+def lc_csv_str_of_ingredients(ingredients: str) -> List:
     """
-    List version of lc_str_of_ingredients. Doesn't call cleanup_ingredients()
+    CSV version of lc_str_of_ingredients. Doesn't call cleanup_ingredients()
 
-    :param ingredients(list), a csv list of phrases
-    :return ingredients(list)
+    :param ingredients, a csv string of phrases
+    :return ingredients
     """
     # lowercase each phrase and return the list
-    return [qw.lower() for qw in regex_commas_and_spaces.split(ingredients)]
+    ingredients = [qw.lower() for qw in regex_commas_and_spaces.split(ingredients)]
+
+    return ingredients
 
 
-def sorted_ingredients_as_csv(ingredients):
+def sorted_ingredients_as_csv(ingredients: str) -> str:
     """
     Return comma separated, stringified and sorted version of lc_str_of_ingredients()
 
-    :param ingredients(str)
-    :return ingredients(str)
+    :param ingredients
+    :return ingredients
     """
-    ingredients = ", ".join(sorted(lc_list_of_ingredients(ingredients)))
+    ingredients = ", ".join(sorted(lc_csv_str_of_ingredients(ingredients)))
+
     return ingredients
