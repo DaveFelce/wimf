@@ -62,7 +62,8 @@ def percentage_of_ingredients_matched(query_params_ingredients):
 
 
 class ProcessRecipeSearch(View):
-    """ View for processing recipe search form
+    """
+    View for processing recipe search form
     """
 
     def get(self, request):
@@ -149,7 +150,6 @@ class ProcessRecipeSearch(View):
 
     def _make_bar_chart(self, recipes):
         """
-
         :param recipes(list of dicts of hits returned from search):
         :return(obj): bar_chart
         """
@@ -174,7 +174,6 @@ class ProcessRecipeSearch(View):
 
     def _make_pie_chart(self, recipes):
         """
-
         :param recipes(list of dicts of hits returned from search):
         :return(obj): pie_chart
         """

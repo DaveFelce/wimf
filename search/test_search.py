@@ -9,7 +9,8 @@ class TestSearch(TestCase):
     """ Test searches """
 
     def test_search_service(self):
-        """ Test the search service for expected results.
+        """
+        Test the search service for expected results.
         This will currently search 'live' data.  Obviously
         that's bad and would in reality search test data
         """
