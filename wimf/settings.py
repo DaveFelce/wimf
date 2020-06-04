@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', '')
+SECRET_KEY = os.environ.get("SECRET_KEY", "")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,14 +79,12 @@ WSGI_APPLICATION = "wimf.wsgi.application"
 MESSAGE_STORAGE = "django.contrib.messages.storage.session.SessionStorage"
 
 ELASTICSEARCH_DSL = {
-    'default': {
-        'hosts': 'elasticsearch:9200'
-    },
+    "default": {"hosts": "elasticsearch:9200"},
 }
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.postgresql',
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DATABASE_NAME", ""),
         "USER": os.environ.get("DATABASE_USER", ""),
         "PASSWORD": os.environ.get("DATABASE_PASSWORD", ""),

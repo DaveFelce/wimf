@@ -8,10 +8,10 @@ from pygal.style import CleanStyle
 
 from services.es_search import RecipeSearch
 from common.utils import (
-    lc_list_of_ingredients,
+    lc_csv_str_of_ingredients,
     sorted_ingredients_as_csv,
     split_str_on_whitespace,
-    lc_str_of_ingredients,
+    lc_whitespaced_str_of_ingredients,
 )
 
 
@@ -26,7 +26,7 @@ def percentage_of_ingredients_matched(query_params_ingredients):
 
     # Get the query params values, which don't change between calls and are hashable
     # Lower case the list so they are now separate keywords
-    query_params_ingredients_list = lc_str_of_ingredients(query_params_ingredients)
+    query_params_ingredients_list = lc_whitespaced_str_of_ingredients(query_params_ingredients)
 
     def get_percentage_matched(recipe_ingredients):
         """
@@ -39,7 +39,7 @@ def percentage_of_ingredients_matched(query_params_ingredients):
         :param recipe_ingredients(str), from the hits returned by search
         :return: matched words(str), the percentage matched(float to 2 decimal places)
         """
-        recipe_ingredients = lc_list_of_ingredients(recipe_ingredients)
+        recipe_ingredients = lc_csv_str_of_ingredients(recipe_ingredients)
         matched_phrases = defaultdict(int)
         for recipe_ingredient in recipe_ingredients:
             for ingredient in query_params_ingredients_list:

@@ -13,11 +13,11 @@ pygal = "*"
 elasticsearch-dsl = "*"
 requests = "*"
 django-bootstrap3 = "*"
-pytest = "*"
 pytest-mock = "*"
 pytest-sugar = "*"
 django-elasticsearch-dsl = "*"
 model-bakery = "*"
+pytest-django = "*"
 
 [requires]
 python_version = "3.8"
