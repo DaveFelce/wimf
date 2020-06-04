@@ -8,7 +8,8 @@ from django.urls import reverse
 
 
 class RecipeSearchForm(forms.Form):
-    """Simple search form config, for validating against
+    """
+    Simple search form config, for validating against
     """
 
     def __init__(self, *args, **kwargs):
@@ -17,7 +18,8 @@ class RecipeSearchForm(forms.Form):
     ingredients = forms.CharField(label="Ingredients", max_length=2000, required=True)
 
     def process_post(self, request, context):
-        """Process the posted recipe search form
+        """
+        Process the posted recipe search form
 
         Params:
             request object,

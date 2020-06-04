@@ -3,9 +3,9 @@
 import json
 import logging
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.shortcuts import get_object_or_404
-from django.utils.six import BytesIO
+import io
 from model_mommy import mommy
 from rest_framework import status
 from rest_framework.parsers import JSONParser
@@ -37,7 +37,8 @@ class TestRecipes(APITransactionTestCase):
         }'
 
     def test_serialization_from_stored_recipes(self):
-        """Stored recipes should be serialized into JSON using the serializer
+        """
+        Stored recipes should be serialized into JSON using the serializer
         """
 
         # Create known details for recipes in the database
@@ -50,14 +51,15 @@ class TestRecipes(APITransactionTestCase):
         self.assertIsInstance(json_content, bytes)
 
     def test_serialization_from_bytestream(self):
-        """Should be possible to store recipes as bytestream from JSON using the serializer
+        """
+        Should be possible to store recipes as bytestream from JSON using the serializer
         """
 
         setattr(self.recipe1, "name", "testname_recipe1")
         self.recipe1.save()
         serializer = RecipeSerializer(self.recipe1)
         json_content = JSONRenderer().render(serializer.data)
-        stream = BytesIO(json_content)
+        stream = io.BytesIO(json_content)
         data = JSONParser().parse(stream)
 
         serializer = RecipeSerializer(data=data)
@@ -68,7 +70,8 @@ class TestRecipes(APITransactionTestCase):
         self.assertTrue(serializer.save())
 
     def test_serialization_from_string(self):
-        """Should be possible to store recipes from JSON as string using the serializer
+        """
+        Should be possible to store recipes from JSON as string using the serializer
         """
 
         data = json.loads(self.recipe4_json)  # Dict
@@ -83,13 +86,15 @@ class TestRecipes(APITransactionTestCase):
         self.assertEqual(recipe4.ingredients, "cheddar cheese, cheese, green onion")
 
     def test_many_recipe_objects(self):
-        """Should be possible to retrieve multiple recipe objs using the serializer
+        """
+        Should be possible to retrieve multiple recipe objs using the serializer
         """
         serializer = RecipeSerializer(Recipe.objects.all(), many=True)
         self.assertEqual(len(serializer.data), 3)
 
     def test_REST_get_for_all_recipes(self):
-        """Test retrieval from the front end, using a Client and GET request
+        """
+        Test retrieval from the front end, using a Client and GET request
         """
 
         # Set an attribute to a known value
@@ -101,7 +106,8 @@ class TestRecipes(APITransactionTestCase):
         self.assertEqual(data[2]["name"], "testname_recipe3")
 
     def test_json_post_and_retrieval(self):
-        """Test creation using the front end using POST, then retrieve using both
+        """
+        Test creation using the front end using POST, then retrieve using both
         DB obj and GET request
         """
 

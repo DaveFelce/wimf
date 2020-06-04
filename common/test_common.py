@@ -22,7 +22,8 @@ class TestUtils(TestCase):
         self.ingredients5 = "one  thing   two     three four"
 
     def test_ingredients_cleanup(self):
-        """ Test the removal of non-word and extra spaces from ingredients keywords
+        """
+        Test the removal of non-word and extra spaces from ingredients keywords
         """
 
         expected_ingredient_keywords = "one thing two three four"
@@ -38,7 +39,8 @@ class TestUtils(TestCase):
         )
 
     def test_lc_list_of_ingredients(self):
-        """ Test the creation of a lowercased list of ingredients keywords
+        """
+        Test the creation of a lowercased list of ingredients keywords
         """
 
         expected_ingredient_keywords_list = ["one", "thing", "two", "three", "four"]
@@ -54,7 +56,8 @@ class TestUtils(TestCase):
         )
 
     def test_sorted_ingredients_as_csv(self):
-        """ Test the creation of a sorted csv string from whitespace separated string
+        """
+        Test the creation of a sorted csv string from whitespace separated string
         """
 
         expected_ingredients_string = "four, one, thing, three, two"

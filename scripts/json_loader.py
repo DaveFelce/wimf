@@ -5,7 +5,7 @@ import requests
 
 if __name__ == "__main__":
 
-    path = "../fixtures"
+    path = "../seed_data"
     json_files = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
 
     for json_file in json_files:

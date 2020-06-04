@@ -1,5 +1,3 @@
-from django.conf import settings
-from elasticsearch import Elasticsearch
 import json
 import logging
 from recipes.documents import RecipeDocument
@@ -9,7 +7,8 @@ logger = logging.getLogger(__name__)
 
 
 def get_recipes_from_search(es_search):
-    """Populate a dict with hit results foreach hit returned by Elasticsearch.  Push onto list and return.
+    """
+    Populate a dict with hit results foreach hit returned by Elasticsearch.  Push onto list and return.
 
     Params:
         The ES search obj
@@ -33,20 +32,9 @@ def get_recipes_from_search(es_search):
 
 
 class RecipeSearch:
-    """ Carry out the Elasticsearch query and return results
     """
-
-    def __init__(self):
-        """Set up the ES client
-        """
-        # self.client = Elasticsearch(
-        #     [settings.SEARCH_SERVICE["ES_HOST"]],
-        #     port=settings.SEARCH_SERVICE["ES_PORT"],
-        #     http_auth=(
-        #         settings.SEARCH_SERVICE["ES_USER"],
-        #         settings.SEARCH_SERVICE["ES_PASSWORD"],
-        #     ),
-        # )
+    Carry out the Elasticsearch query and return results
+    """
 
     def do_search(self, search_params):
         """ Do the actual search, using the search params we've been passed
