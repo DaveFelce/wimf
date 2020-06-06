@@ -1,6 +1,5 @@
 """ Recipes Tests """
 
-import json
 import logging
 
 from django.urls import reverse
@@ -27,25 +26,20 @@ class TestRecipes(APITransactionTestCase):
     def setUp(self):
         """ Set up some commonly needed attributes """
 
-        self.recipe1 = baker.make("recipes.Recipe")
-        self.recipe2 = baker.make("recipes.Recipe")
-        self.recipe3 = baker.make("recipes.Recipe")
-        self.recipe4_json = '{ \
-            "name": "Three In One Onion Dip Recipe", \
-            "url": "http://cookeatshare.com/recipes/three-in-one-onion-dip-4122", \
-            "ingredients": "cheddar cheese, cheese, green onion" \
-        }'
+        self.recipe1 = baker.make(
+            "recipes.Recipe", name="testname", url="http://sometestplace.com"
+        )
+        self.recipe2 = baker.make("recipes.Recipe", name="testname_recipe2")
+        self.test_recipe = {
+            "name": "Three In One Onion Dip Recipe",
+            "url": "http://cookeatshare.com/recipes/three-in-one-onion-dip-4122",
+            "ingredients": "cheddar cheese, cheese, green onion",
+        }
 
     def test_serialization_from_stored_recipes(self):
         """
         Stored recipes should be serialized into JSON using the serializer
         """
-
-        # Create known details for recipes in the database
-        setattr(self.recipe1, "name", "testname")
-        self.recipe1.save()
-        self.assertEqual(self.recipe1.name, "testname")
-
         serializer = RecipeSerializer(self.recipe1)
         json_content = JSONRenderer().render(serializer.data)
         self.assertIsInstance(json_content, bytes)
@@ -54,9 +48,6 @@ class TestRecipes(APITransactionTestCase):
         """
         Should be possible to store recipes as bytestream from JSON using the serializer
         """
-
-        setattr(self.recipe1, "name", "testname_recipe1")
-        self.recipe1.save()
         serializer = RecipeSerializer(self.recipe1)
         json_content = JSONRenderer().render(serializer.data)
         stream = io.BytesIO(json_content)
@@ -64,9 +55,7 @@ class TestRecipes(APITransactionTestCase):
 
         serializer = RecipeSerializer(data=data)
         self.assertTrue(serializer.is_valid())
-        self.assertEqual(
-            serializer.validated_data["name"], "testname_recipe1"
-        )  # OrderedDict
+        self.assertEqual(serializer.validated_data["name"], "testname")  # OrderedDict
         self.assertTrue(serializer.save())
 
     def test_serialization_from_string(self):
@@ -74,8 +63,7 @@ class TestRecipes(APITransactionTestCase):
         Should be possible to store recipes from JSON as string using the serializer
         """
 
-        data = json.loads(self.recipe4_json)  # Dict
-        serializer = RecipeSerializer(data=data)
+        serializer = RecipeSerializer(data=self.test_recipe)
         self.assertTrue(serializer.is_valid())
         self.assertEqual(
             serializer.validated_data["name"], "Three In One Onion Dip Recipe"
@@ -90,20 +78,15 @@ class TestRecipes(APITransactionTestCase):
         Should be possible to retrieve multiple recipe objs using the serializer
         """
         serializer = RecipeSerializer(Recipe.objects.all(), many=True)
-        self.assertEqual(len(serializer.data), 3)
+        self.assertEqual(len(serializer.data), 2)
 
     def test_REST_get_for_all_recipes(self):
         """
         Test retrieval from the front end, using a Client and GET request
         """
-
-        # Set an attribute to a known value
-        setattr(self.recipe3, "name", "testname_recipe3")
-
-        self.recipe3.save()
         response = self.client.get(reverse("recipes:recipelist"), format="json")
         data = response.data
-        self.assertEqual(data[2]["name"], "testname_recipe3")
+        self.assertEqual(data[1]["name"], "testname_recipe2")
 
     def test_json_post_and_retrieval(self):
         """
@@ -113,27 +96,27 @@ class TestRecipes(APITransactionTestCase):
 
         # Create a new object with a POST to the REST API
         response = self.client.post(
-            reverse("recipes:recipelist"), json.loads(self.recipe4_json), format="json"
+            reverse("recipes:recipelist"), data=self.test_recipe, format="json",
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         # Test retrieval of the new obj using DB
-        recipe4 = get_object_or_404(Recipe, pk=4)  # reset_sequences == True
+        recipe = get_object_or_404(Recipe, pk=3)  # reset_sequences == True
         self.assertEqual(
-            recipe4.url, "http://cookeatshare.com/recipes/three-in-one-onion-dip-4122"
+            recipe.url, "http://cookeatshare.com/recipes/three-in-one-onion-dip-4122"
         )
-        self.assertEqual(Recipe.objects.count(), 4)
+        self.assertEqual(Recipe.objects.count(), 3)
 
         # Test retrieval of new obj using GET for list of all objects
         response = self.client.get(reverse("recipes:recipelist"), format="json")
         data_as_ordered_dict = response.data
         self.assertEqual(
-            data_as_ordered_dict[3]["name"], "Three In One Onion Dip Recipe"
+            data_as_ordered_dict[2]["name"], "Three In One Onion Dip Recipe"
         )
 
         # Test retrieval of new obj using GET for single object
         response = self.client.get(
-            reverse("recipes:recipedetail", kwargs={"pk": 4}), format="json"
+            reverse("recipes:recipedetail", kwargs={"pk": 3}), format="json"
         )
         data_as_dict = response.data
         self.assertEqual(

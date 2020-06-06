@@ -1,11 +1,11 @@
 """ Search functionality tests """
-from django.test import TestCase
+from django.test import TransactionTestCase
 
 from services.es_search import RecipeSearch
 from search.views import percentage_of_ingredients_matched
 
 
-class TestSearch(TestCase):
+class TestSearch(TransactionTestCase):
     """ Test searches """
 
     def test_search_service(self):
@@ -16,9 +16,7 @@ class TestSearch(TestCase):
         """
 
         recipe_search = RecipeSearch()
-        results = recipe_search.do_search(
-            {"ingredients": "TESTONE_INGREDIENTS TESTTWO_INGREDIENTS"}
-        )
+        results = recipe_search.do_search({"ingredients": "beef tomatoes onions"})
         self.assertIsInstance(results, list)
         self.assertEqual(len(results), 2)
         results = recipe_search.do_search({"ingredients": "TESTONE_INGREDIENTS"})

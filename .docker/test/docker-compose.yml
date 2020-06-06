@@ -1,0 +1,73 @@
+version: '3.6'
+
+services:
+  test-app:
+    container_name: test-wimf-app
+    build:
+      context: ../..
+      dockerfile: .docker/Dockerfile
+    image: test-wimf
+    command:
+      - sh
+      - "-c"
+      - |
+        /app/wait-for-it.sh postgres:5432
+        python manage.py migrate
+        /app/wait-for-it.sh elasticsearch:9200
+        python manage.py collectstatic --noinput
+        /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
+    volumes:
+      - ../..:/app
+    environment:
+      - DATABASE_NAME=${DATABASE_NAME}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - TEST_DATABASE_NAME=${TEST_DATABASE_NAME}
+      - TEST_DATABASE_USER=${TEST_DATABASE_USER}
+      - TEST_DATABASE_PASSWORD=${TEST_DATABASE_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY}
+      - PYTHONPATH=/app
+      - DJANGO_SETTINGS_MODULE=wimf.test_settings
+    ports:
+      - "8001:8000"
+      - "8081:8080"
+    depends_on:
+      - test-elasticsearch
+      - test-db
+    links:
+      - test-db:postgres
+
+  test-db:
+    container_name: test-wimf-db
+    image: postgres:alpine
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+    volumes:
+      - test-wimf-pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  test-elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.7.0
+    container_name: test-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-test-data:/usr/share/elasticsearch/test_data
+    ports:
+      - 9300:9200
+
+volumes:
+  es-test-data:
+    driver: local
+  test-wimf-pgdata:
+    driver: local
