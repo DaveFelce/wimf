@@ -16,16 +16,35 @@ class TestSearch:
         """
         Test the search service for expected results.
         """
+        # GIVEN
         serializer = RecipeSerializer(data=test_recipe)
         assert serializer.is_valid()
         assert serializer.validated_data["name"] == "Three In One Onion Dip Recipe"
         serializer.save()
 
+        # WHEN
         recipe_search = RecipeSearch()
         results = recipe_search.do_search({"ingredients": "cheese"})
+
+        # THEN
         assert isinstance(results, list)
         assert len(results) == 1
+
+    def test_search_service_not_found(self, clear_recipe_index, test_recipe):
+        """
+        Test the search service for expected results.
+        """
+        # GIVEN
+        serializer = RecipeSerializer(data=test_recipe)
+        assert serializer.is_valid()
+        assert serializer.validated_data["name"] == "Three In One Onion Dip Recipe"
+        serializer.save()
+
+        # WHEN
+        recipe_search = RecipeSearch()
         results = recipe_search.do_search({"ingredients": "do not find me"})
+
+        # THEN
         assert not len(results)
 
 
