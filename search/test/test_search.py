@@ -1,37 +1,40 @@
-""" Search functionality tests """
+from test.common_fixtures import clear_recipe_index
+
+import pytest
 from django.test import TestCase
-
-from services.es_search import RecipeSearch
+from recipes.serializers import RecipeSerializer
 from search.views import percentage_of_ingredients_matched
+from services.es_search import RecipeSearch
 
 
-class TestSearch(TestCase):
+@pytest.mark.django_db(transaction=True)
+class TestSearch:
     """ Test searches """
 
-    def test_search_service(self):
+    def test_search_service(self, clear_recipe_index):
         """
         Test the search service for expected results.
-        This will currently search 'live' data.  Obviously
-        that's bad and would in reality search test data
         """
 
+        test_recipe = {
+            "name": "Three In One Onion Dip Recipe",
+            "url": "http://cookeatshare.com/recipes/three-in-one-onion-dip-4122",
+            "ingredients": "cheddar cheese, cheese, green onion",
+        }
+        serializer = RecipeSerializer(data=test_recipe)
+        assert serializer.is_valid()
+        assert serializer.validated_data["name"] == "Three In One Onion Dip Recipe"
+        serializer.save()
+
         recipe_search = RecipeSearch()
-        results = recipe_search.do_search(
-            {"ingredients": "TESTONE_INGREDIENTS TESTTWO_INGREDIENTS"}
-        )
-        self.assertIsInstance(results, list)
-        self.assertEqual(len(results), 2)
-        results = recipe_search.do_search({"ingredients": "TESTONE_INGREDIENTS"})
-        self.assertEqual(len(results), 1)
-        results = recipe_search.do_search({"ingredients": "TESTTWO_INGREDIENTS"})
-        self.assertEqual(len(results), 1)
-        results = recipe_search.do_search({"ingredients": "NOTINHERE"})
-        self.assertEqual(len(results), 0)
+        results = recipe_search.do_search({"ingredients": "cheese"})
+        assert isinstance(results, list)
+        assert len(results) == 1
+        results = recipe_search.do_search({"ingredients": "do not find me"})
+        assert not len(results)
 
-        # This test won't pass again until 'name' is included in searches
-        # results = recipe_search.do_search({'ingredients': 'TESTTWO'})
-        # self.assertEqual(len(results), 1)
 
+class TestCalcs(TestCase):
     def test_percentage_calcs(self):
         recipe_ingredients1 = "eggs, milk, cheese, butter"
         query_params_ingredients = "eggs"  # The user's search

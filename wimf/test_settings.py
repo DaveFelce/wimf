@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 from wimf.settings import *
 
+ELASTICSEARCH_DSL = {
+    "default": {"hosts": "test-elasticsearch:9200"},
+}
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",

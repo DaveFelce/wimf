@@ -18,6 +18,7 @@ pytest-sugar = "*"
 django-elasticsearch-dsl = "*"
 model-bakery = "*"
 pytest-django = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.8"
