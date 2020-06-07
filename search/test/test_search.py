@@ -3,6 +3,7 @@ from test.common_fixtures import clear_recipe_index
 import pytest
 from django.test import TestCase
 from recipes.serializers import RecipeSerializer
+from search.test.fixtures.recipes import test_recipe
 from search.views import percentage_of_ingredients_matched
 from services.es_search import RecipeSearch
 
@@ -11,16 +12,10 @@ from services.es_search import RecipeSearch
 class TestSearch:
     """ Test searches """
 
-    def test_search_service(self, clear_recipe_index):
+    def test_search_service(self, clear_recipe_index, test_recipe):
         """
         Test the search service for expected results.
         """
-
-        test_recipe = {
-            "name": "Three In One Onion Dip Recipe",
-            "url": "http://cookeatshare.com/recipes/three-in-one-onion-dip-4122",
-            "ingredients": "cheddar cheese, cheese, green onion",
-        }
         serializer = RecipeSerializer(data=test_recipe)
         assert serializer.is_valid()
         assert serializer.validated_data["name"] == "Three In One Onion Dip Recipe"
