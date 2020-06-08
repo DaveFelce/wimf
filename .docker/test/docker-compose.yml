@@ -13,7 +13,7 @@ services:
       - |
         /app/wait-for-it.sh postgres:5432
         python manage.py migrate
-        /app/wait-for-it.sh elasticsearch:9200
+        /app/wait-for-it.sh test-elasticsearch:9200
         python manage.py collectstatic --noinput
         /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
     volumes:
@@ -41,9 +41,9 @@ services:
     container_name: test-wimf-db
     image: postgres:alpine
     environment:
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=${DATABASE_NAME}
-      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${TEST_DATABASE_PASSWORD}
+      - POSTGRES_DB=${TEST_DATABASE_NAME}
+      - POSTGRES_USER=${TEST_DATABASE_USER}
     volumes:
       - test-wimf-pgdata:/var/lib/postgresql/data
     ports:
