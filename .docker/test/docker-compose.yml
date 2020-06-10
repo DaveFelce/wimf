@@ -14,7 +14,6 @@ services:
         /app/wait-for-it.sh postgres:5432
         python manage.py migrate
         /app/wait-for-it.sh test-elasticsearch:9200
-        python manage.py collectstatic --noinput
         /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
     volumes:
       - ../..:/app

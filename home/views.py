@@ -12,36 +12,15 @@ class Home(View):
         View (:obj:Django View base class, required)
 
     """
-
-    def common_context(self):
-        """Common data for the context var: both get() and post() will
-        require these
+    def get(self, request):
+        """get http method: search form will be empty
         """
-
         context = {
             "reverse": reverse(
                 "home:index"
             ),  # So we can get back here if things go wrong
         }
-        return context
-
-    def get(self, request):
-        """get http method: search form will be empty
-        """
-        context = self.common_context()
         context.update(
             {"form": RecipeSearchForm(), "messages": get_messages(request),}
         )
         return render(request, "home/index.html", context)
-
-    def post(self, request):
-        """post http method: search form will be submitted
-        """
-        form = RecipeSearchForm(request.POST)
-
-        context = self.common_context()
-        context.update(
-            {"template": "home/index.html",}
-        )
-        # Process the form and return the results
-        return form.process_post(request, context)

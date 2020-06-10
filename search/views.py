@@ -1,18 +1,19 @@
-from django.views import View
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
-from django.contrib import messages
 from collections import defaultdict
-import pygal
-from pygal.style import CleanStyle
 
-from services.es_search import RecipeSearch
+import pygal
 from common.utils import (
     lc_csv_str_of_ingredients,
+    lc_whitespaced_str_of_ingredients,
     sorted_ingredients_as_csv,
     split_str_on_whitespace,
-    lc_whitespaced_str_of_ingredients,
 )
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+from django.views import View
+from pygal.style import CleanStyle
+from services.es_search import RecipeSearch
 
 
 def percentage_of_ingredients_matched(query_params_ingredients):
@@ -26,7 +27,9 @@ def percentage_of_ingredients_matched(query_params_ingredients):
 
     # Get the query params values, which don't change between calls and are hashable
     # Lower case the list so they are now separate keywords
-    query_params_ingredients_list = lc_whitespaced_str_of_ingredients(query_params_ingredients)
+    query_params_ingredients_list = lc_whitespaced_str_of_ingredients(
+        query_params_ingredients
+    )
 
     def get_percentage_matched(recipe_ingredients):
         """
@@ -81,14 +84,15 @@ class ProcessRecipeSearch(View):
         recipe_search = RecipeSearch()
         recipes = recipe_search.do_search({"ingredients": query_params["ingredients"]})
 
-        # Nothing found: return to originating page and its form with msg
+        # Nothing found: return to home page with msg
         if len(recipes) == 0:
             messages.add_message(
                 request,
                 messages.ERROR,
                 "Sorry, no recipes were found for those ingredients",
             )
-            return HttpResponseRedirect(query_params["reverse"])
+            search_url = reverse("home:index")
+            return HttpResponseRedirect(search_url)
 
         # Success: we have some results, so turn them into graph images for display
         # Create a gauge chart showing what percentage of ingredient keywords we matched, for each match
