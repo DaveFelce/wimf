@@ -1,5 +1,5 @@
 import pytest
-from recipes.documents import RecipeDocument
+from apps.recipes.documents import RecipeDocument
 
 
 @pytest.fixture()

@@ -31,9 +31,9 @@ ALLOWED_HOSTS = ["127.0.0.1", "localhost", "0.0.0.0"]
 # Application definition
 
 INSTALLED_APPS = [
-    "home.apps.HomeConfig",
-    "recipes.apps.RecipesConfig",
-    "search.apps.SearchConfig",
+    "apps.home.apps.HomeConfig",
+    "apps.recipes.apps.RecipesConfig",
+    "apps.search.apps.SearchConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

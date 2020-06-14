@@ -1,14 +1,13 @@
 import io
 import logging
-from test.common_fixtures import clear_recipe_index
 
 import pytest
+from apps.recipes.models import Recipe
+from apps.recipes.serializers import RecipeSerializer
+from apps.search.test.fixtures.recipes import test_recipe
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from model_bakery import baker
-from recipes.models import Recipe
-from recipes.serializers import RecipeSerializer
-from recipes.test.fixtures.recipes import test_recipe
 from rest_framework import status
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer

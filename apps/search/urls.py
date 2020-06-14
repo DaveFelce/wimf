@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from search.views import ProcessRecipeSearch
+from apps.search.views import ProcessRecipeSearch
 
 app_name = "search"
 

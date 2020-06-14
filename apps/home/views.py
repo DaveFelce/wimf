@@ -2,7 +2,7 @@ from django.contrib.messages import get_messages
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import View
-from search.forms import RecipeSearchForm
+from apps.search.forms import RecipeSearchForm
 
 
 class Home(View):
@@ -12,6 +12,7 @@ class Home(View):
         View (:obj:Django View base class, required)
 
     """
+
     def get(self, request):
         """get http method: search form will be empty
         """

@@ -1,4 +1,4 @@
-from recipes.models import Recipe
+from apps.recipes.models import Recipe
 from rest_framework import serializers
 
 

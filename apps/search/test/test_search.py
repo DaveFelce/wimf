@@ -1,10 +1,8 @@
-from test.common_fixtures import clear_recipe_index
-
 import pytest
+from apps.recipes.serializers import RecipeSerializer
+from apps.search.test.fixtures.recipes import test_recipe
+from apps.search.views import percentage_of_ingredients_matched
 from django.test import TestCase
-from recipes.serializers import RecipeSerializer
-from search.test.fixtures.recipes import test_recipe
-from search.views import percentage_of_ingredients_matched
 from services.es_search import RecipeSearch
 
 

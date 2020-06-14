@@ -1,6 +1,6 @@
 import json
 import logging
-from recipes.documents import RecipeDocument
+from apps.recipes.documents import RecipeDocument
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)

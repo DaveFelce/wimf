@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from recipes.models import Recipe
+from apps.recipes.models import Recipe
 
 
 class RecipeAdmin(admin.ModelAdmin):

@@ -1,6 +1,6 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
-from recipes.views import RecipeDetail, RecipeList
+from apps.recipes.views import RecipeDetail, RecipeList
 
 app_name = "recipes"
 

@@ -1,5 +1,5 @@
-from recipes.models import Recipe
-from recipes.serializers import RecipeSerializer
+from apps.recipes.models import Recipe
+from apps.recipes.serializers import RecipeSerializer
 from rest_framework import generics
 
 
