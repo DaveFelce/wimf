@@ -20,7 +20,7 @@ EXPOSE 8080
 ENV UWSGI_INI /app/.docker/configs/uwsgi/uwsgi.ini
 
 # Custom nginx conf to add server section
-COPY .docker/configs/nginx/conf.d/nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
+COPY .docker/configs/nginx/test/conf.d/nginx-custom.conf /etc/nginx/conf.d/nginx-custom.conf
 
 # Add in the codebase
 ADD . /app

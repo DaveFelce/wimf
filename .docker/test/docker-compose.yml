@@ -5,7 +5,7 @@ services:
     container_name: test-wimf-app
     build:
       context: ../..
-      dockerfile: .docker/Dockerfile
+      dockerfile: .docker/test/Dockerfile
     image: test-wimf
     command:
       - sh
