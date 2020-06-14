@@ -5,7 +5,7 @@ services:
     container_name: wimf-app
     build:
       context: ../..
-      dockerfile: .docker/Dockerfile
+      dockerfile: .docker/development/Dockerfile
     image: wimf
 #    manage.py search_index --rebuild
     command:
